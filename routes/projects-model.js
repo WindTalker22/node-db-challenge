@@ -29,7 +29,7 @@ function addTask(body) {
 
 function getTasks() {
   return db('projects')
-    .join('task', 'task.project_id', 'project.id')
+    .join('task', 'task.project_id', 'projects.id')
     .select(
       'task.*',
       'projects.name as project_name',

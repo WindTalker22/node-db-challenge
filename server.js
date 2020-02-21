@@ -50,11 +50,23 @@ server.post('/api/resource', (req, res) => {
 })
 
 server.get('/api/task', (req, res) => {
-  res.status(200).json({ message: 'working' })
+  Db.getTasks()
+    .then(tasks => {
+      res.status(200).json(tasks)
+    })
+    .catch(err => {
+      res.status(400).json({ message: err })
+    })
 })
 
 server.post('/api/task', (req, res) => {
-  res.status(200).json({ message: req.body })
+  Db.addTask(req.body)
+    .then(task => {
+      res.status(201).json(task)
+    })
+    .catch(err => {
+      res.status(406).json({ message: err })
+    })
 })
 
 module.exports = server
