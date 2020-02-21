@@ -30,12 +30,25 @@ server.post('/api/projects', (req, res) => {
     })
 })
 server.get('/api/resource', (req, res) => {
-  res.status(200).json({ message: 'working' })
+  Db.getResources()
+    .then(resources => {
+      res.status(200).json(resources)
+    })
+    .catch(err => {
+      res.status(404).json({ message: err })
+    })
 })
 
 server.post('/api/resource', (req, res) => {
-  res.status(200).json({ message: req.body })
+  Db.addResource(req.body)
+    .then(resource => {
+      res.status(200).json(resource)
+    })
+    .catch(err => {
+      res.status(404).json({ message: err })
+    })
 })
+
 server.get('/api/task', (req, res) => {
   res.status(200).json({ message: 'working' })
 })
